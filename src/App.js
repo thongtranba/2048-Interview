@@ -46,7 +46,7 @@ class App extends React.Component {
     return randomNumber;
   }
 
-  // Place random starting number on an empty coordinate
+  // Place random starting number on an blank coordinate
   placeRandom(board) {
     const blankCoordinates = this.getBlankCoordinates(board);
     const randomCoordinate =
@@ -57,100 +57,7 @@ class App extends React.Component {
     return board;
   }
 
-  // Compares two boards to check for movement
-  boardMoved(original, updated) {
-    return JSON.stringify(updated) !== JSON.stringify(original) ? true : false;
-  }
-
-  // Moves board depending on direction and checks for game over
-  move(direction) {
-    if (!this.state.gameOver) {
-      if (direction === "up") {
-        const movedUp = this.moveUp(this.state.board);
-        if (this.boardMoved(this.state.board, movedUp.board)) {
-          const upWithRandom = this.placeRandom(movedUp.board);
-
-          if (this.checkForMovement(upWithRandom)) {
-            this.setState({
-              board: upWithRandom,
-              gameOver: true,
-            });
-          } else {
-            this.setState({
-              board: upWithRandom,
-              score: this.state.score + movedUp.score,
-            });
-          }
-        }
-      } else if (direction === "right") {
-        const movedRight = this.moveRight(this.state.board);
-        if (this.boardMoved(this.state.board, movedRight.board)) {
-          const rightWithRandom = this.placeRandom(movedRight.board);
-
-          if (this.checkForMovement(rightWithRandom)) {
-            this.setState({
-              board: rightWithRandom,
-              gameOver: true,
-            });
-          } else {
-            this.setState({
-              board: rightWithRandom,
-              score: this.state.score + movedRight.score,
-            });
-          }
-        }
-      } else if (direction === "down") {
-        const movedDown = this.moveDown(this.state.board);
-        if (this.boardMoved(this.state.board, movedDown.board)) {
-          const downWithRandom = this.placeRandom(movedDown.board);
-
-          if (this.checkForMovement(downWithRandom)) {
-            this.setState({
-              board: downWithRandom,
-              gameOver: true,
-            });
-          } else {
-            this.setState({
-              board: downWithRandom,
-              score: this.state.score + movedDown.score,
-            });
-          }
-        }
-      } else if (direction === "left") {
-        const movedLeft = this.moveLeft(this.state.board);
-        if (this.boardMoved(this.state.board, movedLeft.board)) {
-          const leftWithRandom = this.placeRandom(movedLeft.board);
-
-          if (this.checkForMovement(leftWithRandom)) {
-            this.setState({
-              board: leftWithRandom,
-              gameOver: true,
-            });
-          } else {
-            this.setState({
-              board: leftWithRandom,
-              score: this.state.score + movedLeft.score,
-            });
-          }
-        }
-      }
-    } else {
-      this.setState({ message: "Game Over! Please start a new game." });
-    }
-  }
-
-  // Check to see if there are any moves left
-  checkForMovement(board) {
-    let moves = [
-      this.boardMoved(board, this.moveUp(board).board),
-      this.boardMoved(board, this.moveRight(board).board),
-      this.boardMoved(board, this.moveDown(board).board),
-      this.boardMoved(board, this.moveLeft(board).board),
-    ];
-
-    return moves.includes(true) ? false : true;
-  }
-
+  //directions : move Up, move Down, Move Right and Move Left
   moveUp(inputBoard) {
     let rotatedRight = this.rotateRight(inputBoard);
     let board = [];
@@ -281,6 +188,7 @@ class App extends React.Component {
     return { board, score };
   }
 
+  //rotate board for move up and move down
   rotateRight(matrix) {
     let result = [];
 
@@ -309,6 +217,101 @@ class App extends React.Component {
     return result;
   }
 
+  // Compares two boards to check for movement
+  boardMoved(original, updated) {
+    return JSON.stringify(original) !== JSON.stringify(updated) ? true : false;
+  }
+
+  // Moves board depending on direction and checks for game over
+  move(direction) {
+    if (!this.state.gameOver) {
+      if (direction === "up") {
+        const movedUp = this.moveUp(this.state.board);
+        if (this.boardMoved(this.state.board, movedUp.board)) {
+          const upWithRandom = this.placeRandom(movedUp.board);
+
+          if (this.checkForMovement(upWithRandom)) {
+            this.setState({
+              board: upWithRandom,
+              gameOver: true,
+            });
+          } else {
+            this.setState({
+              board: upWithRandom,
+              score: this.state.score + movedUp.score,
+            });
+          }
+        }
+      } else if (direction === "right") {
+        const movedRight = this.moveRight(this.state.board);
+        if (this.boardMoved(this.state.board, movedRight.board)) {
+          const rightWithRandom = this.placeRandom(movedRight.board);
+
+          if (this.checkForMovement(rightWithRandom)) {
+            this.setState({
+              board: rightWithRandom,
+              gameOver: true,
+            });
+          } else {
+            this.setState({
+              board: rightWithRandom,
+              score: this.state.score + movedRight.score,
+            });
+          }
+        }
+      } else if (direction === "down") {
+        const movedDown = this.moveDown(this.state.board);
+        if (this.boardMoved(this.state.board, movedDown.board)) {
+          const downWithRandom = this.placeRandom(movedDown.board);
+
+          if (this.checkForMovement(downWithRandom)) {
+            this.setState({
+              board: downWithRandom,
+              gameOver: true,
+            });
+          } else {
+            this.setState({
+              board: downWithRandom,
+              score: this.state.score + movedDown.score,
+            });
+          }
+        }
+      } else if (direction === "left") {
+        const movedLeft = this.moveLeft(this.state.board);
+        if (this.boardMoved(this.state.board, movedLeft.board)) {
+          const leftWithRandom = this.placeRandom(movedLeft.board);
+
+          if (this.checkForMovement(leftWithRandom)) {
+            this.setState({
+              board: leftWithRandom,
+              gameOver: true,
+            });
+          } else {
+            this.setState({
+              board: leftWithRandom,
+              score: this.state.score + movedLeft.score,
+            });
+          }
+        }
+      }
+    } else {
+      this.setState({ message: "Game Over! Please start a new game." });
+    }
+  }
+
+  // Check to see if there are any moves left
+  checkForMovement(board) {
+    let moves = [
+      this.boardMoved(board, this.moveUp(board).board),
+      this.boardMoved(board, this.moveRight(board).board),
+      this.boardMoved(board, this.moveDown(board).board),
+      this.boardMoved(board, this.moveLeft(board).board),
+    ];
+
+    return moves.includes(true) ? false : true;
+  }
+
+  //recieved events from the keyboard
   componentDidMount() {
     this.initBoard();
     const body = document.querySelector("body");
@@ -369,7 +372,8 @@ const Row = ({ row }) => {
     </tr>
   );
 };
-//apply the same color to tiles of same values
+
+//create cellvalue and apply the same color to tiles of same values
 const Cell = ({ cellValue }) => {
   let color = "cell";
   let value = cellValue === 0 ? "" : cellValue;
