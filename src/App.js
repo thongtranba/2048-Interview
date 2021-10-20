@@ -46,7 +46,7 @@ class App extends React.Component {
     return randomNumber;
   }
 
-  // Place random starting number on an blank coordinate
+  // Place random starting number on a blank coordinate
   placeRandom(board) {
     const blankCoordinates = this.getBlankCoordinates(board);
     const randomCoordinate =
@@ -189,13 +189,13 @@ class App extends React.Component {
   }
 
   //rotate board for move up and move down
-  rotateRight(matrix) {
+  rotateRight(board) {
     let result = [];
 
-    for (let c = 0; c < matrix.length; c++) {
+    for (let c = 0; c < board.length; c++) {
       let row = [];
-      for (let r = matrix.length - 1; r >= 0; r--) {
-        row.push(matrix[r][c]);
+      for (let r = board.length - 1; r >= 0; r--) {
+        row.push(board[r][c]);
       }
       result.push(row);
     }
@@ -203,13 +203,13 @@ class App extends React.Component {
     return result;
   }
 
-  rotateLeft(matrix) {
+  rotateLeft(board) {
     let result = [];
 
-    for (let c = matrix.length - 1; c >= 0; c--) {
+    for (let c = board.length - 1; c >= 0; c--) {
       let row = [];
-      for (let r = matrix.length - 1; r >= 0; r--) {
-        row.unshift(matrix[r][c]);
+      for (let r = board.length - 1; r >= 0; r--) {
+        row.unshift(board[r][c]);
       }
       result.push(row);
     }
