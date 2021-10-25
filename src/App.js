@@ -56,7 +56,29 @@ class App extends React.Component {
 
     return board;
   }
+  //recieved events from the keyboard
+  componentDidMount() {
+    this.initBoard();
+    const body = document.querySelector("body");
+    body.addEventListener("keydown", this.handleKeyDown.bind(this));
+  }
 
+  handleKeyDown(e) {
+    const up = 38;
+    const right = 39;
+    const down = 40;
+    const left = 37;
+
+    if (e.keyCode === up) {
+      this.move("up");
+    } else if (e.keyCode === right) {
+      this.move("right");
+    } else if (e.keyCode === down) {
+      this.move("down");
+    } else if (e.keyCode === left) {
+      this.move("left");
+    }
+  }
   //directions : move Up, move Down, Move Right and Move Left
   moveUp(inputBoard) {
     let rotatedRight = this.rotateRight(inputBoard);
@@ -309,30 +331,6 @@ class App extends React.Component {
     ];
 
     return moves.includes(true) ? false : true;
-  }
-
-  //recieved events from the keyboard
-  componentDidMount() {
-    this.initBoard();
-    const body = document.querySelector("body");
-    body.addEventListener("keydown", this.handleKeyDown.bind(this));
-  }
-
-  handleKeyDown(e) {
-    const up = 38;
-    const right = 39;
-    const down = 40;
-    const left = 37;
-
-    if (e.keyCode === up) {
-      this.move("up");
-    } else if (e.keyCode === right) {
-      this.move("right");
-    } else if (e.keyCode === down) {
-      this.move("down");
-    } else if (e.keyCode === left) {
-      this.move("left");
-    }
   }
 
   render() {
